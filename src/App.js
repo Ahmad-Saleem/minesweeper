@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+let board = new Array(10);
+board = board.fill(new Array(10), 0, 9).map(row => row.fill(0, 0, 9));
+
+console.log(board)
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+          <h1>Mine Sweeper </h1>
       </header>
+      <main>
+        <div className='board'>
+          {
+            board.map((row, key) => <div key={key} className='row'> 
+              {
+                row.map((cell, key) => <div key={key} className='cell' onClick={() => console.log(cell)} />)
+              }
+              </div>
+            )
+          }
+        </div>
+      </main>
     </div>
   );
 }
