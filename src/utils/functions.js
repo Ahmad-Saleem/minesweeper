@@ -3,7 +3,7 @@ import {Cell, LEVEL} from '../containers/Game/models'
 
 
 export const fillArray = (rows, cols, value = null) => {
-    return new Array(rows).fill(new Array(cols).fill(value, 0, cols-1), 0, rows-1);
+    return new Array(rows).fill(value, 0, rows).map(elm => new Array(cols).fill(value, 0, cols))
 }
 
 export const generateBoardData = (level = LEVEL.easy) => {
@@ -11,7 +11,7 @@ export const generateBoardData = (level = LEVEL.easy) => {
     
     filledArray.forEach((row, x) => {
         row.forEach((col, y) => {
-                filledArray[x][y] = Cell({x,y});
+            filledArray[x][y] = Cell({x,y});
         });
     });
 

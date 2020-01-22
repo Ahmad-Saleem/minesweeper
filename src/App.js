@@ -1,21 +1,15 @@
 import React from 'react'
-import {Provider} from 'react-redux'
-import {List} from 'immutable'
+import {connect} from 'react-redux'
 
-import store from './store'
-
-let board = new Array(10);
-board = board.fill(new Array(10), 0, 9).map(row => row.fill(0, 0, 9));
+// let board = new Array(10);
+// board = board.fill(new Array(10), 0, 9).map(row => row.fill(0, 0, 9));
 
 
 
-function App() {
-  
+function App({game}) {
+  const {board} = game;
+
   return (
-    <Provider store={store}>
-      {
-        console.log(store.getState().game.get('board'))
-      }
       <div className="App">
       <header>
           <h1>Mine Sweeper </h1>
@@ -23,7 +17,7 @@ function App() {
       <main>
         <div className='board'>
           {
-            List.isList(store.getState().game.get('board')) && store.getState().game.get('board').map((row, key) => <div key={key} className='row'> 
+            board.size > 0 && board.map((row, key) => <div key={key} className='row'> 
               {
                 row.map((cell, key) => <div key={key} className='cell' onClick={() => console.log(cell)} />)
               }
@@ -33,8 +27,12 @@ function App() {
         </div>
       </main>
     </div>
-    </Provider>
   );
 }
 
-export default App;
+const mapPropsToState = ({game}) => {
+  return {
+    game
+  }
+}
+export default connect(mapPropsToState)(App);
