@@ -20,7 +20,7 @@ function App({game, openCell}) {
           {
             board.size > 0 && board.map((row, key) => <div key={key} className='row'> 
               {
-                row.map((cell, key) => <div key={key} className='cell' onClick={() => openCell(cell)} />)
+                row.map((cell, key) => <div key={key} className={`cell ${cell.get('isOpened') ? 'cell-opened' : ''}`} onClick={() => openCell(cell)} />)
               }
               </div>
             )
@@ -37,7 +37,7 @@ const mapPropsToState = ({game}) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     openCell: (cell) => dispatch(cellOpen(cell)),
   }

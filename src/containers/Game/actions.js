@@ -9,10 +9,18 @@ export const gameInit = () => ({
 export const CELL_OPEN = 'CELL_OPEN';
 
 export const cellOpen = (cell) => {
-        return {
+
+    return (dispatch, getState) => {
+
+        const state = getState();
+        console.log(state)
+        if(state.game.get('openedCells') === 0) dispatch(setupMinesAction());
+
+        dispatch({
             type: CELL_OPEN,
             payload: cell.update('isOpened', isOpened => true),
-        }
+        });
+    }
 }
 
 
