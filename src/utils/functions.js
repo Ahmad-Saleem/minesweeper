@@ -18,3 +18,18 @@ export const generateBoardData = (level = LEVEL.easy) => {
     return fromJS(filledArray);
 }
 
+export const setupMines = (board) => {
+    const boardJs = board.toJS();
+    boardJs.forEach((row, i) => {
+        row.forEach((col, j) => {
+            if(col.x === col.y) col.hasMine = true;
+        })
+    });
+
+    return fromJS(boardJs);
+}
+
+export const setupNeighbours = () => {
+
+}
+

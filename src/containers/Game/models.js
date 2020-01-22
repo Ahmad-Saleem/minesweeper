@@ -17,6 +17,8 @@ const Cell = Record({
     x: -1,
     y: -1,
     hasMine: false,
+    isOpened: false,
+    isFlaged: false,
     value: 0,
     neghbours: List(),
 });

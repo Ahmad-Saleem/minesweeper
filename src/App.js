@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {cellOpen} from './containers/Game/actions'
 // let board = new Array(10);
 // board = board.fill(new Array(10), 0, 9).map(row => row.fill(0, 0, 9));
 
 
 
-function App({game}) {
+function App({game, openCell}) {
   const {board} = game;
 
   return (
@@ -19,7 +20,7 @@ function App({game}) {
           {
             board.size > 0 && board.map((row, key) => <div key={key} className='row'> 
               {
-                row.map((cell, key) => <div key={key} className='cell' onClick={() => console.log(cell)} />)
+                row.map((cell, key) => <div key={key} className='cell' onClick={() => openCell(cell)} />)
               }
               </div>
             )
@@ -35,4 +36,11 @@ const mapPropsToState = ({game}) => {
     game
   }
 }
-export default connect(mapPropsToState)(App);
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    openCell: (cell) => dispatch(cellOpen(cell)),
+  }
+}
+
+export default connect(mapPropsToState, mapDispatchToProps)(App);
