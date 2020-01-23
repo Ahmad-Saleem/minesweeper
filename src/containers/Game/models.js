@@ -1,9 +1,9 @@
 import {List, Record} from 'immutable'
 
 const LEVEL = {
-    easy: {name: 'easy', rows: 10, cols: 10, mins: 10},
-    meduim: {name: 'medium', rows: 20, cols: 20, mins: 20},
-    hard: {name: 'hard', rows: 30, cols: 30, mins: 30},
+    easy: {name: 'easy', rows: 10, cols: 10, mines: 10},
+    meduim: {name: 'medium', rows: 20, cols: 20, mines: 20},
+    hard: {name: 'hard', rows: 30, cols: 30, mines: 30},
 };
 
 const GAME_STATE = {

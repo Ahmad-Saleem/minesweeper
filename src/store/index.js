@@ -5,6 +5,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducer'
 
 const middlewares = [thunk];
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middlewares)));
+const composeEnhancers = composeWithDevTools({
+    trace: true,
+});
+const store = createStore(reducer, composeEnhancers(applyMiddleware(...middlewares)));
 
 export default store;

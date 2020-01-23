@@ -7,19 +7,23 @@ export const gameInit = () => ({
 
 
 export const CELL_OPEN = 'CELL_OPEN';
+export const cellOpen = (cell) => ({
+    type: CELL_OPEN,
+    payload: cell,
+});
 
-export const cellOpen = (cell) => {
+export const openCell = (cell) => {
 
     return (dispatch, getState) => {
 
-        const state = getState();
-        console.log(state)
-        if(state.game.get('openedCells') === 0) dispatch(setupMinesAction());
+        const {game} = getState();
+        
+        if(game.get('openedCells') === 0) {
+            dispatch(setupMinesAction());
+        }
 
-        dispatch({
-            type: CELL_OPEN,
-            payload: cell.update('isOpened', isOpened => true),
-        });
+        dispatch(cellOpen(cell));
+        //dispatch(increaseOpenedCells());
     }
 }
 
@@ -31,3 +35,9 @@ export const setupMinesAction = () => {
         payload: {}
     }
 }
+
+export const INCREASE_OPENED_CELLS = 'INCREASE_OPENED_CELLS';
+export const increaseOpenedCells = () => ({
+    type: INCREASE_OPENED_CELLS,
+    payload: null
+})

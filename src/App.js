@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {cellOpen} from './containers/Game/actions'
+import {openCell} from './containers/Game/actions'
 // let board = new Array(10);
 // board = board.fill(new Array(10), 0, 9).map(row => row.fill(0, 0, 9));
 
@@ -20,7 +20,14 @@ function App({game, openCell}) {
           {
             board.size > 0 && board.map((row, key) => <div key={key} className='row'> 
               {
-                row.map((cell, key) => <div key={key} className={`cell ${cell.get('isOpened') ? 'cell-opened' : ''}`} onClick={() => openCell(cell)} />)
+                row.map((cell, key) => <div 
+                  key={key} 
+                  className={`cell ${cell.get('isOpened') ? 'cell-opened' : ''}`} 
+                  onClick={() => openCell(cell)}
+                  style={cell.get('hasMine')? {backgroundColor: 'red'} : {}}
+                > 
+                    {cell.get('hasMine') ? '' : cell.get('value') > 0 ? cell.get('value') : ''}
+                </div>)
               }
               </div>
             )
@@ -39,7 +46,7 @@ const mapPropsToState = ({game}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openCell: (cell) => dispatch(cellOpen(cell)),
+    openCell: (cell) => dispatch(openCell(cell)),
   }
 }
 
