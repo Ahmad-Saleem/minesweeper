@@ -8,7 +8,10 @@ const initialState = Game({board: generateBoardData()});
 export default (state = initialState, action) => {
     
     switch(action.type){
-        case SETUP_MINES: return state.update('board', board => setupMines(board, state.get('level')));
+        case SETUP_MINES: return state
+            .update('board', board => 
+                setupMines(board, state.get('level'), action.payload)
+            );
         case CELL_OPEN: return state
             .setIn(['board', action.payload.x, action.payload.y, 'isOpened'], true)
             .update('openedCells', openedCells => ++openedCells);

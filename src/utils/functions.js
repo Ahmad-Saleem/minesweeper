@@ -18,15 +18,24 @@ export const generateBoardData = (level = LEVEL.easy) => {
     return fromJS(filledArray);
 }
 
-export const setupMines = (board, level) => {
+export const setupMines = (board, level, firstOpenedCell) => {
     const {rows, cols, mines} = level;
     const minedBoard = board.withMutations(grid => {
         let i = 0;
+        //console.log(firstOpenedCell);
         while(i < mines){
             let x = Math.floor(Math.random() * rows);
             let y = Math.floor(Math.random() * cols);
-            grid.setIn([x, y,'hasMine'], true);
-            i++;
+            //console.log({x,y});
+            if(
+                firstOpenedCell.get('x') !== x && 
+                firstOpenedCell.get('y') !== y &&
+                grid.getIn([x,y, 'hasMine']) === false){
+
+                    grid.setIn([x, y,'hasMine'], true);
+                    i++;    
+            }
+            
         }
     });
 
@@ -48,11 +57,14 @@ export const setupNeighbours = (board) => {
                     getNeighbor(grid, i+1, j+1),
                     getNeighbor(grid, i+1, j),
                     getNeighbor(grid, i+1, j-1),
-                ]; //.filter(neighbour => neighbour && neighbour != null);
-                console.log({i,j}, neighbours)
+                ].filter(neighbour => neighbour && neighbour != null);
+                //console.log({i,j}, neighbours)
                 const value = neighbours.filter(neighbour => neighbour && neighbour.get('hasMine')).length;
                 
                 grid.setIn([i,j, 'value'], value);
+
+                const neighboursPos = neighbours.map(neighbour => [neighbour.get('x'), neighbour.get('y')]);
+                grid.update([i,j, 'neighbours'], neighbours => List.of(neighboursPos)); // @HERE
             });
         })
     });
