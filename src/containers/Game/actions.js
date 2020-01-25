@@ -65,4 +65,19 @@ export const INCREASE_OPENED_CELLS = 'INCREASE_OPENED_CELLS';
 export const increaseOpenedCells = () => ({
     type: INCREASE_OPENED_CELLS,
     payload: null
-})
+});
+
+export const SET_FLAG = 'SET_FLAG';
+export const setFlag = (cell) => ({
+    type: SET_FLAG,
+    payload: cell,
+});
+
+export const FLAG_CELL = 'FLAG_CELL';
+export const flagCell = (cell) => {
+    return (dispatch, getState) => {
+        if(!cell.get('isOpened')){
+            dispatch(setFlag(cell))
+        }
+    }
+}

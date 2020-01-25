@@ -1,5 +1,5 @@
 import { Game } from './models'
-import {GAME_INIT, CELL_OPEN, SETUP_MINES, INCREASE_OPENED_CELLS} from './actions'
+import {GAME_INIT, CELL_OPEN, SETUP_MINES, INCREASE_OPENED_CELLS, SET_FLAG} from './actions'
 import {generateBoardData, setupMines} from '../../utils/functions'
 
 
@@ -17,6 +17,8 @@ export default (state = initialState, action) => {
             .update('openedCells', openedCells => ++openedCells);
         case INCREASE_OPENED_CELLS: return state.set('openedCells', state.get('openedCells') + 1);
         case GAME_INIT: return initialState;
+        case SET_FLAG: return state
+            .setIn(['board', action.payload.x, action.payload.y, 'isFlaged'], true);
         default: return state;
     }
 }
