@@ -46,10 +46,13 @@ main {
   height: 24px;
   background-color: cornflowerblue;
   margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-opened {
-  background-color: azure;
+  background-color: #757575;
 }
 
 .cell:active {

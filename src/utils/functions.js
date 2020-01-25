@@ -64,7 +64,7 @@ export const setupNeighbours = (board) => {
                 grid.setIn([i,j, 'value'], value);
 
                 const neighboursPos = neighbours.map(neighbour => [neighbour.get('x'), neighbour.get('y')]);
-                grid.update([i,j, 'neighbours'], neighbours => List.of(neighboursPos)); // @HERE
+                grid.setIn([i,j, 'neghbours'], fromJS(neighboursPos));
             });
         })
     });

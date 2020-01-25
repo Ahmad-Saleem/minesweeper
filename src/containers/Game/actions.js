@@ -12,17 +12,27 @@ export const cellOpen = (cell) => {
 
         const {game} = getState();
 
-        if(cell.get('hasMine')){
-
-        }else if(cell.get('value') === 0){
-            const neighbours = cell.get('neighbours');
-            console.log(neighbours);
-        }
-
         dispatch({
             type: CELL_OPEN,
             payload: cell,
         });
+
+        if(cell.get('hasMine')){
+            alert('looooose');
+            return;
+        }else if(cell.get('value') === 0 && !cell.get('isOpened')){
+
+            const neighbours = cell.get('neghbours');
+            //console.log(neighbours)
+            neighbours.forEach(neighbourPos => {
+                const neighbour = game.getIn(['board', ...neighbourPos]);
+                if(!neighbour.get('hasMine')){
+                    //console.log(neighbour);
+                    dispatch(cellOpen(neighbour));
+                }
+            });
+            //console.log(neighbours);
+        }
     }
 }
 

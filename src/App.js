@@ -24,9 +24,9 @@ function App({game, openCell}) {
                   key={key} 
                   className={`cell ${cell.get('isOpened') ? 'cell-opened' : ''}`} 
                   onClick={() => openCell(cell)}
-                  style={cell.get('hasMine')? {backgroundColor: 'red'} : {}}
+                  style={cell.get('hasMine') && cell.get('isOpened') ? {backgroundColor: 'red'} : {}}
                 > 
-                    {cell.get('hasMine') ? '' : cell.get('value') > 0 ? cell.get('value') : ''}
+                    {cell.get('hasMine') ? '' : cell.get('isOpened') && cell.get('value') > 0 ? cell.get('value') : ''}
                 </div>)
               }
               </div>
